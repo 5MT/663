@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<gx:Tour>
+	<name>Ecchujima Freight Line</name>
+	<gx:Playlist>
+		<gx:horizFov>60</gx:horizFov>
+		<gx:FlyTo>
+			<LookAt>
+				<longitude>139.8253361</longitude>
+				<latitude>35.67906111</latitude>
+				<heading>80.09873917</heading> <!--- heading はカメラの上方向。北が 0 で東が 90 -->
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt> <!--- 仰角 0-->
+				<range>40</range> <!--- range は対象からカメラまでの距離 [m]-->
+			</LookAt>
+		</gx:FlyTo>
+		<gx:Wait>
+			<gx:duration>3.0</gx:duration>
+		</gx:Wait>
+		<gx:FlyTo>
+			<gx:duration>45.0</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8243111</longitude>
+				<latitude>35.68493333</latitude>
+				<heading>80.09873917</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt> <!--- 仰角 0-->
+				<range>40</range> <!--- range は対象からカメラまでの距離 [m]-->
+			</LookAt>
+		</gx:FlyTo>
+		<gx:FlyTo>
+			<gx:duration>4.5</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8242056</longitude>
+				<latitude>35.68551944</latitude>
+				<heading>79.79076592</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt>
+				<range>40</range>
+			</LookAt>
+		</gx:FlyTo>
+		<gx:FlyTo>
+			<gx:duration>1.5</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8241722</longitude>
+				<latitude>35.6857</latitude>
+				<heading>79.54009091</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt>
+				<range>40</range>
+			</LookAt>
+		</gx:FlyTo>
+		<gx:FlyTo>
+			<gx:duration>6.75</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8241056</longitude>
+				<latitude>35.68663889</latitude>
+				<heading>85.93847732</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt> <!--- 仰角 0-->
+				<range>40</range> <!--- range は対象からカメラまでの距離 [m]-->
+			</LookAt>
+		</gx:FlyTo>
+		<gx:FlyTo>
+			<gx:duration>27</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8239778</longitude>
+				<latitude>35.69026944</latitude>
+				<heading>87.98430113</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt> <!--- 仰角 0-->
+				<range>40</range> <!--- range は対象からカメラまでの距離 [m]-->
+			</LookAt>
+		</gx:FlyTo>
+		<gx:FlyTo>
+			<gx:duration>14.25</gx:duration>
+			<gx:flyToMode>smooth</gx:flyToMode>
+			<LookAt>
+				<longitude>139.8235861</longitude>
+				<latitude>35.69209167</latitude>
+				<heading>77.86945916</heading>
+				<gx:altitudeMode>relativeToGround</gx:altitudeMode>
+				<altitude>0</altitude>
+				<tilt>0</tilt> <!--- 仰角 0-->
+				<range>40</range> <!--- range は対象からカメラまでの距離 [m]-->
+			</LookAt>
+		</gx:FlyTo>
+	</gx:Playlist>
+</gx:Tour>
+</kml>
