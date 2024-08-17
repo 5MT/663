@@ -1,0 +1,10 @@
+{
+  "pathCoordinatesFilename" : "coordinates_越中島貨物駅-小岩駅.json",
+  "tourFilename" : "tour_test.kml",
+  "tourName" : "越中島貨物駅発、小岩駅行",
+  "gexHorizontalFieidOfViewDegree" : 60,
+  "gexAltitudeMode" : "relativeToGround",
+  "geTagetAltitude" : 0,
+  "geCameraRangeDistanceMeter" : 40,
+  "tourRunningSpeedKmH" : 50
+}

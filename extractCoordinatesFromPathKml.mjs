@@ -5,7 +5,7 @@ import xml2js from 'xml2js';
 const kmlFile = process.argv[2]; // 第一引数がKMLファイルのパス
 const outputJsonFile = process.argv[3]; // 出力するJSONファイルのパス
 
-if (!kmlFile) {
+if (!kmlFile || !outputJsonFile) {
     console.error('Usage: node extractCoordinatesFromPathKml.js <path_to_kml_file> [output_json_file]');
     process.exit(1);
 }
