@@ -31,17 +31,6 @@ fs.readFile(kmlFile, 'utf8')
     };
 
     return fs.writeFile(outputJsonFile, JSON.stringify(outputData, null, 2));
-
-
-
-
-
-
-
-
-
-
-
   })
   .then(() => {
       console.log(`座標データを ${outputJsonFile} に書き出しました`);
@@ -50,33 +39,3 @@ fs.readFile(kmlFile, 'utf8')
       console.error(`エラーが発生しました: ${err.message}`);
       process.exit(1);
   });
-
-/*
-
-fs.readFile(kmlFile, (err, data) => {
-    if (err) {
-        console.error(`ファイルの読み込みに失敗しました: ${kmlFile}`);
-        process.exit(1);
-    }
-
-    // KMLをXMLとして解析
-    xml2js.parseString(data, (err, result) => {
-        if (err) throw err;
-
-        // KMLの座標データを抽出
-        const coordinatesString = result.kml.Document[0].Placemark[0].LineString[0].coordinates[0];
-        
-        // 座標データを加工してJSONに変換
-        const coordinates = coordinatesString.trim().split(/\s+/).map(coordinate => {
-            const [longitude, latitude, altitude] = coordinate.split(',').map(Number);
-            return { longitude, latitude, altitude };
-        });
-
-        // JSONファイルとして書き出し
-        fs.writeFile(outputJsonFile, JSON.stringify(coordinates, null, 2), (err) => {
-            if (err) throw err;
-            console.log(`座標データを ${outputJsonFile} に書き出しました`);
-        });
-    });
-});
-*/
