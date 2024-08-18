@@ -1,6 +1,6 @@
 {
-  "pathCoordinatesFilename" : "coordinates_越中島貨物駅-小岩駅.json",
-  "tourFilename" : "Tour_越中島貨物駅発、小岩駅行.kml",
+  "pathKmlFilename" : "Path_越中島貨物駅-小岩駅.kml",
+  "tourKmlFilename" : "Tour_越中島貨物駅発、小岩駅行.kml",
   "tourName" : "越中島貨物駅発、小岩駅行",
   "gexHorizontalFieidOfViewDegree" : 60,
   "gexAltitudeMode" : "relativeToGround",
