@@ -2,6 +2,9 @@ import { promises as fs } from 'fs';
 import xml2js from 'xml2js';
 import xmlbuilder from 'xmlbuilder';
 
+const R = 6378137; // 地球の半径 (メートル)
+const durationToStartPointSec = 30; // ツアー開始から開始点に行くまでの秒数
+
 // コマンドライン引数から JSON ファイルのパスを取得
 const receipeFile = process.argv[2]; // 第一引数が JSON ファイルのパス
 
@@ -24,26 +27,53 @@ fs.readFile(receipeFile, "utf8")
     // 座標ファイルを JSON パース
     const coordinatesData = JSON.parse(readCoordinatesFile);
 
-//    console.log(coordinatesData.coordinates);
-
     const tourpath = coordinatesData.coordinates.map((currentValue, index, array)=>{
-      let previousValue = (index > 0) ? array[index - 1] : null;
-      let nextValue = (index < array.length - 1) ? array[index + 1] : null;
+      const previousValue = (index > 0) ? array[index - 1] : null;
+      const nextValue = (index < array.length - 1) ? array[index + 1] : null;
 
-      let headingDegree = (180 / Math.PI) * ((previousValue == null) ?
-          Math.PI - Math.atan2(nextValue[1]-currentValue[1],nextValue[0]-currentValue[0])
+      // カメラ heading 方角の計算
+      const headingDegree = (180 / Math.PI) * ((previousValue == null) ?
+          Math.PI - Math.atan2(
+            nextValue[1]-currentValue[1],
+            (nextValue[0]-currentValue[0]) * Math.cos(Math.PI /180 * currentValue[1])
+          )
         : (nextValue != null) ?
           1/2 * (
-            Math.PI - Math.atan2(nextValue[1]-currentValue[1],nextValue[0]-currentValue[0])
-            - Math.atan2(previousValue[1]-currentValue[1],previousValue[0]-currentValue[0])
+            Math.PI - Math.atan2(
+              nextValue[1]-currentValue[1],
+              (nextValue[0]-currentValue[0]) * Math.cos(Math.PI /180 * currentValue[1])
+            )
+            - Math.atan2(
+              previousValue[1]-currentValue[1],
+              (previousValue[0]-currentValue[0]) * Math.cos(Math.PI /180 * currentValue[1])
+            )
           )
-        : -1 * Math.atan2(previousValue[1]-currentValue[1],previousValue[0]-currentValue[0])
+        : -1 * Math.atan2(
+          previousValue[1]-currentValue[1],
+          (previousValue[0]-currentValue[0]) * Math.cos(Math.PI /180 * currentValue[1])
+        )
       );
 
-      return [currentValue[0], currentValue[1], currentValue[2], headingDegree];
+      // 指定点までの移動時間の計算
+      let durationSec;
+      if (!previousValue){
+        durationSec = durationToStartPointSec;
+      } else {
+        // 緯度と経度の差をラジアンに変換
+        const dLat = (currentValue[1]-previousValue[1]) * Math.PI / 180;
+        const dLon = (currentValue[0]-previousValue[0]) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(previousValue[1] * Math.PI / 180) * Math.cos(currentValue[1] * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c; // メートルでの距離
+        durationSec = distance / (config.tourRunningSpeedKmH * 1000 / 3600);
+      }
+
+      return [currentValue[0], currentValue[1], currentValue[2], headingDegree, durationSec];
     });
 
-//    console.log(tourpath);
+    console.log(tourpath);
 
     const kml = xmlbuilder.create('kml', { version: '1.0', encoding: 'UTF-8' })
     .att('xmlns', 'http://www.opengis.net/kml/2.2')
@@ -57,12 +87,16 @@ fs.readFile(receipeFile, "utf8")
 
 //    const playListElement = kml.ele("gx:PlayList");
 
-    tourpath.forEach(item => {
-//      playListElement.ele('gx:FlyTo')
-        kml.ele('gx:FlyTo')
-          .ele('gx:duration', 2).up()
-          .ele('gx:flyToMode', 'smooth').up()
-          .ele('LookAt')
+    tourpath.forEach((item, index) => {
+        const flyToElement = kml.ele('gx:FlyTo')
+//        kml.ele('gx:FlyTo')
+          .ele('gx:duration', item[4]).up();
+
+        if (index !== 0) {
+          flyToElement.ele('gx:flyToMode', 'smooth').up();
+        }
+
+          flyToElement.ele('LookAt')
             .ele('longitude', item[0]).up()
             .ele('latitude', item[1]).up()
             .ele('heading', item[3]).up()
@@ -70,7 +104,7 @@ fs.readFile(receipeFile, "utf8")
             .ele('altitude', 0).up()
             .ele('tilt', 0).up() // 仰角 0
             .ele('range', 40).up() // range は対象からカメラまでの距離 [m]
-          .up()
+          .up();
     });
 
 //    playListElement.up();
