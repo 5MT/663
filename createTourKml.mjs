@@ -100,10 +100,10 @@ fs.readFile(receipeFile, "utf8")
             .ele('longitude', item[0]).up()
             .ele('latitude', item[1]).up()
             .ele('heading', item[3]).up()
-            .ele('gx:altitudeMode', 'relativeToGround').up()
-            .ele('altitude', 0).up()
+            .ele('gx:altitudeMode', config.gexAltitudeMode).up()
+            .ele('altitude', config.geTagetAltitude).up()
             .ele('tilt', 0).up() // 仰角 0
-            .ele('range', 40).up() // range は対象からカメラまでの距離 [m]
+            .ele('range', config.geCameraRangeDistanceMeter).up() // range は対象からカメラまでの距離 [m]
           .up();
     });
 
